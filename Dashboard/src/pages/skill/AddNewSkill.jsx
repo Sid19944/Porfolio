@@ -70,7 +70,7 @@ function AddNewSkill() {
           type="submit"
           onClick={handleSubmit}
           disabled={loading || skillName === ""}
-          className="w-full outline-1 p-1 rounded-b-2xl bg-blue-400 hover:rounded-2xl hover:bg-blue-600 cursor-pointer hover:text-white hover:font-semibold blur-[0.5px] hover:blur-none disabled:cursor-not-allowed"
+          className="w-full outline-1 p-1 rounded-b-2xl bg-blue-400 hover:rounded-2xl hover:bg-blue-600 cursor-pointer hover:text-white hover:font-semibold blur-[0.5px] hover:blur-none disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           {loading ? "Adding..." : "Add Skill"}
         </button>
