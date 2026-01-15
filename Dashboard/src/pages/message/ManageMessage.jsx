@@ -50,9 +50,8 @@ function ManageMessage() {
   }, [loading]);
 
   return (
-    <div className="h-screen p-4 font-serif">
-      
-      <h1 className="outline-1 p-4 rounded-lg text-2xl font-bold font-serif">
+    <div className="h-screen p-4 font-serif overflow-y-auto">
+      <h1 className="outline-1 p-4 rounded-lg text-2xl font-bold font-serif sticky top-0 bg-black z-2">
         All Messages
       </h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 py-4">

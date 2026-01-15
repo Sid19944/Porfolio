@@ -28,7 +28,7 @@ const sendMessage = asyncHandler(async (req, res, next) => {
 });
 
 const getAllMessage = asyncHandler(async (req, res, next) => {
-  console.log("A");
+
   const allMessage = await Message.find();
 
   return res.status(200).json({
@@ -38,7 +38,6 @@ const getAllMessage = asyncHandler(async (req, res, next) => {
 });
 
 const setReaded = asyncHandler(async (req, res, next) => {
-  console.log("B")
   const { id } = req.params;
   await Message.updateOne(
     { _id: id },
@@ -54,7 +53,6 @@ const setReaded = asyncHandler(async (req, res, next) => {
 
 const deleteMessage = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   const message = await Message.findById(id);
 
   if (!message) {

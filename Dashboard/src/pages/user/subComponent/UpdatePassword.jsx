@@ -37,9 +37,9 @@ function UpdatePassword() {
 
   return (
     <div className="h-screen w-full font-serif flex justify-center">
-      <div className="w-full flex justify-center ">
+      <div className="w-full flex justify-center items-center">
         <form className="rounded-lg w-[75%] ">
-          <h2 className="text-3xl font-semibold text-center m-6 ">
+          <h2 className="text-3xl font-semibold text-center mb-6 bg-black w-full">
             Update Password
           </h2>
 

@@ -40,7 +40,7 @@ function AddNewSkill() {
 
   return (
     <div className="h-screen flex justify-center items-center font-serif">
-      <form className="outline-1 lg:w-1/2 p-4 rounded-2xl">
+      <form className="outline-1 w-[95%] lg:w-1/2 p-4 rounded-2xl">
         <h1 className="font-semibold text-2xl text-center p-4 rounded-t-2xl mb-4">
           Add New Skill
         </h1>

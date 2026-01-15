@@ -39,14 +39,20 @@ function Home() {
   return (
     <div className="h-screen flex font-serif z-3">
       {/* Nav for desktop */}
-      <nav className="w-[35px] h-full hidden border-r-1 sm:flex justify-between flex-col items-center py-2 gap-3 ">
+      <nav className="w-11 h-full hidden border-r-1 sm:flex  flex-col items-center py-2 gap-3 z-9">
         <div className="group">
           <Link
-            className="h-fit w-full group"
+            className="h-fit w-full group "
             onClick={() => setActivePage("dashboard")}
           >
-            <DashboardIcon className="hover:scale-110 hover:blur-none blur-[0.5px] cursor-pointer" />
-            <span className="absolute left-[40px] rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
+            <DashboardIcon
+              className={`hover:scale-120 hover:blur-none blur-[0.5px] cursor-pointer ${
+                activePage == "dashboard"
+                  ? "text-blue-400 scale-120 blur-none"
+                  : ""
+              }`}
+            />
+            <span className="absolute left-10 rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
               Dashboard
             </span>
           </Link>
@@ -57,8 +63,14 @@ function Home() {
             className="h-fit w-full group"
             onClick={() => setActivePage("addProject")}
           >
-            <NoteAddIcon className="hover:scale-110 hover:blur-none blur-[0.5px] cursor-pointer" />
-            <span className="absolute left-[40px] rounded-lg mb-2 hidden  group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
+            <NoteAddIcon
+              className={`hover:scale-120 hover:blur-none blur-[0.5px] cursor-pointer ${
+                activePage == "addProject"
+                  ? "text-blue-400 scale-120 blur-none"
+                  : ""
+              }`}
+            />
+            <span className="absolute left-10 rounded-lg mb-2 hidden  group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
               App Project
             </span>
           </Link>
@@ -68,8 +80,14 @@ function Home() {
             className="h-fit w-full group"
             onClick={() => setActivePage("addSkill")}
           >
-            <AddCircleOutlineIcon className="hover:scale-110 hover:blur-none blur-[0.5px] cursor-pointer" />
-            <span className="absolute left-[40px] rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
+            <AddCircleOutlineIcon
+              className={`hover:scale-120 hover:blur-none blur-[0.5px] cursor-pointer ${
+                activePage == "addSkill"
+                  ? "text-blue-400 scale-120 blur-none"
+                  : ""
+              }`}
+            />
+            <span className="absolute left-10 rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
               Add Skill
             </span>
           </Link>
@@ -79,8 +97,14 @@ function Home() {
             className="h-fit w-full group"
             onClick={() => setActivePage("messages")}
           >
-            <MailOutlineIcon className="hover:scale-110 hover:blur-none blur-[0.5px] cursor-pointer" />
-            <span className="absolute left-[40px] rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
+            <MailOutlineIcon
+              className={`hover:scale-120 hover:blur-none blur-[0.5px] cursor-pointer ${
+                activePage == "messages"
+                  ? "text-blue-400 scale-120 blur-none"
+                  : ""
+              }`}
+            />
+            <span className="absolute left-10 rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
               Messages
             </span>
           </Link>
@@ -90,23 +114,29 @@ function Home() {
             className="h-fit w-full group"
             onClick={() => setActivePage("account")}
           >
-            <AccountCircleIcon className="hover:scale-110 hover:blur-none blur-[0.5px] cursor-pointer" />
-            <span className="absolute left-[40px] rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
+            <AccountCircleIcon
+              className={`hover:scale-120 hover:blur-none blur-[0.5px] cursor-pointer ${
+                activePage == "account"
+                  ? "text-blue-400 scale-120 blur-none"
+                  : ""
+              }`}
+            />
+            <span className="absolute left-10 rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
               Account
             </span>
           </Link>
         </div>
 
-        <div className="h-full flex items-center justify-center">
-          <div className="group">
-            <Link className="h-fit w-full group" onClick={logout}>
-              <LogoutIcon className="hover:scale-110 hover:blur-none blur-[0.5px] cursor-pointer" />
-              <span className="absolute left-[40px] rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
-                Logout
-              </span>
-            </Link>
-          </div>
+        {/* <div className="h-full flex items-center justify-center"> */}
+        <div className="group">
+          <Link className="h-fit w-full group" onClick={logout}>
+            <LogoutIcon className="hover:scale-120 hover:blur-none blur-[0.5px] cursor-pointer" />
+            <span className="absolute left-10 rounded-lg mb-2 hidden group-hover:inline-block bg-amber-100 text-black px-2 group-active:inline-block">
+              Logout
+            </span>
+          </Link>
         </div>
+        {/* </div> */}
       </nav>
 
       <main className="w-full overflow-hidden">
@@ -203,7 +233,7 @@ function Home() {
           </span>
         </header>
 
-        <div className=" h-full">
+        <div className="h-full">
           {(() => {
             switch (activePage) {
               case "dashboard":
@@ -211,14 +241,14 @@ function Home() {
                 break;
               case "addProject":
                 return (
-                  <div className="overflow-y-auto mb-[100px]">
+                  <div className="">
                     <AddProject />
                   </div>
                 );
                 break;
               case "addSkill":
                 return (
-                  <div className="mb-[100px]">
+                  <div className="">
                     <AddSkill />
                   </div>
                 );
@@ -232,7 +262,7 @@ function Home() {
                 break;
               case "account":
                 return (
-                  <div className=" mb-[100px]">
+                  <div className="">
                     <Account />
                   </div>
                 );
