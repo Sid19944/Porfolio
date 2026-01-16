@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173", process.env.FRONTEND_URL],
+    origin: [process.env.DASHBOARD_URL, process.env.FRONTEND_URL],
     credentials: true,
   })
 );
@@ -39,8 +39,8 @@ import projectRouter from "./routes/project.route.js";
 app.use("/auth/v1/project", projectRouter);
 
 // TimeLine router
-import timeLineRouter from "./routes/timeLine.route.js"
-app.use("/auth/v1/timeline", timeLineRouter)
+import timeLineRouter from "./routes/timeLine.route.js";
+app.use("/auth/v1/timeline", timeLineRouter);
 
 app.use(erroMiddleware);
 export { app };
