@@ -9,7 +9,11 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173",process.env.DASHBOARD_URL, process.env.FRONTEND_URL],
+    origin: [
+      "http://localhost:5173",
+      process.env.DASHBOARD_URL,
+      process.env.FRONTEND_URL,
+    ],
     credentials: true,
   })
 );
@@ -21,6 +25,10 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// auth for frontend
+import { verifyJWTForFrontend } from "./middleware/auth.middleware.js";
+app.get("/auth/v1", verifyJWTForFrontend);
 
 // message router
 import messageRouter from "./routes/message.route.js";
