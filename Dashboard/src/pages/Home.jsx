@@ -20,13 +20,14 @@ import AddTimeLine from "./timeLine/AddTimeLine";
 import { userApi } from "../Api";
 
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
+import axios from "axios";
 
 function Home() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [activePage, setActivePage] = useState("dashboard");
+  const [authenticated, setAutneticated] = useState(false);
   const [user, setUser] = useState({});
-
 
   const logout = () => {
     userApi
@@ -43,10 +44,20 @@ function Home() {
   };
 
   useEffect(() => {
+    axios
+      .get("https://porfolio-backend-xxof.onrender.com/auth/v1", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setAutneticated(res?.data?.authenticated);
+      })
+      .catch((err) => {
+        navigate("/login");
+      });
     userApi
       .get("/me")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setUser(res.data.user);
       })
       .catch((err) => {
