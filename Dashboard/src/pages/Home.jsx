@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 
@@ -25,6 +25,7 @@ function Home() {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [activePage, setActivePage] = useState("dashboard");
+  const [user, setUser] = useState({});
 
   const logout = () => {
     userApi
@@ -39,6 +40,19 @@ function Home() {
         toast.error(err.response.data.message);
       });
   };
+
+  useEffect(() => {
+    userApi
+      .get("/me")
+      .then((res) => {
+        console.log(res.data);
+        setUser(res.data.user);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        toast.error(err.response.data.message);
+      });
+  }, []);
 
   return (
     <div className="h-screen flex font-serif z-3">
@@ -255,8 +269,8 @@ function Home() {
         <header className="hidden sm:flex w-full p-3 border-b-1 h-fit sm:items-center gap-4">
           <Link onClick={() => setActivePage("account")} className="w-[10%]">
             <img
-              src="/public/hero.png"
-              alt="Profile"
+              src={user?.avatar?.url}
+              alt="Avatar"
               className="w-full rounded-lg"
             />
           </Link>
@@ -283,8 +297,8 @@ function Home() {
               case "account":
                 return <Account />;
                 break;
-              case "addTimeLine" :
-                return <AddTimeLine/>
+              case "addTimeLine":
+                return <AddTimeLine />;
             }
           })()}
         </div>

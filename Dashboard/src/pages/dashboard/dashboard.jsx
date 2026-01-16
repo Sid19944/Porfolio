@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import Loading from "../utils/Loading";
-import { projectApi, skillApi, timeLineApi } from "../../Api";
+import { projectApi, skillApi, timeLineApi, userApi } from "../../Api";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,6 +11,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 function dashboard() {
+  const [user, setUser] = useState({});
   const [allProject, setAllProject] = useState([]);
   const [allSkill, setAllSkill] = useState([]);
   const [allTimeLine, setAllTimeLine] = useState([]);
@@ -48,6 +49,15 @@ function dashboard() {
         .catch((err) => {
           toast.error(err.response.data.message);
         });
+      await userApi
+        .get("/me")
+        .then((res) => {
+          setUser(res.data.user);
+        })
+        .catch((err) => {
+          console.log(err.data);
+          toast.error(err.response.data.message);
+        });
 
       setBuffering(false);
     })();
@@ -76,7 +86,7 @@ function dashboard() {
           <div className="w-1/2 p-2 gap-2 hidden md:flex ">
             <div className="w-full h-full outline-1 p-4 landing-relaxed bg-gray-900 rounded-lg">
               <img
-                src="hero.png"
+                src={user?.avatar?.url}
                 alt="Avatar"
                 className="max-w-50 float-left outline-1 rounded-2xl mr-2 mb-1"
               />
