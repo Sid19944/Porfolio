@@ -10,8 +10,8 @@ import ManageProject from "./pages/projects/ManageProject.jsx";
 import AddProject from "./pages/projects/AddProject.jsx";
 import AddTech from "./pages/projects/AddTech.jsx";
 import Single from "./pages/projects/Single.jsx";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 
 import EditProject from "./pages/projects/EditProject.jsx";
 import AddTechForUpdate from "./pages/projects/AddTechForUpdate.jsx";
@@ -22,7 +22,6 @@ import EditTimeLine from "./pages/timeLine/EditTimeLine.jsx";
 
 function App() {
   const [data, setData] = useState("");
-
 
   return (
     <BrowserRouter>
