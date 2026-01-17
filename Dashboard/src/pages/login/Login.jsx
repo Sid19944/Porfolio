@@ -102,7 +102,7 @@ function Login() {
               loginDate.password === "" ||
               loginDate.password.length < 8
             }
-            className="w-full block text-center bg-blue-400 font-semibold py-2 text-black hover:rounded-lg hover:bg-blue-600 hover:text-white cursor-pointerdisabled:cursor-not-allowed"
+            className="w-full block text-center bg-blue-400 font-semibold py-2 text-black hover:rounded-lg hover:bg-blue-600 hover:text-white cursor-pointer disabled:cursor-not-allowed"
           >
             Login
             {loading ? "" : <LoginIcon />}
