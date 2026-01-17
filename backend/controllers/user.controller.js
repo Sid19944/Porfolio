@@ -117,7 +117,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
     return next(new ErrorHandler("Invalid Email ID", 400));
   }
 
-  const isPasswordCorrect = await user.isPasswordCorrect(password);
+  const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
   if (!isPasswordCorrect) {
     return next(new ErrorHandler("Invalid Password", 400));
@@ -269,7 +269,7 @@ const updatePassword = asyncHandler(async (req, res, next) => {
   }
 
   const user = await User.findById(req.user._id)
-  const isPasswordCorrect = await user.isPasswordCorrect(currentPassword);
+  const isPasswordCorrect = await bcrypt.compare(password, user.password)
   if (!isPasswordCorrect) {
     return next(new ErrorHandler("Wrond password", 400));
   }
