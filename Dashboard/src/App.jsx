@@ -18,6 +18,8 @@ import ManageMessage from "./pages/message/ManageMessage.jsx";
 import UpdatePassword from "./pages/user/subComponent/UpdatePassword.jsx";
 import UpdateProfile from "./pages/user/subComponent/UpdateProfile.jsx";
 import EditTimeLine from "./pages/timeLine/EditTimeLine.jsx";
+import ManageTimeLine from "./pages/timeLine/ManageTimeLine.jsx";
+import AddTimeLine from "./pages/timeLine/AddTimeLine.jsx";
 
 function App() {
   const [data, setData] = useState("");
@@ -58,8 +60,10 @@ function App() {
 
         {/* timeLine */}
         <Route path="/edit/timeline/:id" element={<EditTimeLine />} />
+        <Route path="/add/timeline" element={<AddTimeLine/>}/>
+        <Route path="/manage/timeline" element={<ManageTimeLine/>}/>
 
-        <Route path="*" element={<Home />} />
+        {/* <Route path="*" element={<Home />} /> */}
       </Routes>
     
   );

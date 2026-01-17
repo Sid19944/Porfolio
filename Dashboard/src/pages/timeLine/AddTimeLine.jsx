@@ -13,16 +13,20 @@ function AddTimeLine() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.preventDefault()
     setLoading(true);
     timeLineApi
       .post("/add", { name, from, to }, { withCredentials: true })
       .then((res) => {
-        toast.success(res.data.message);
+        toast.success(res.data.message,{position : "bottom-left"});
         setName("");
         setFrom("");
         setTo("");
         setLoading(false);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -87,7 +91,8 @@ function AddTimeLine() {
 
         <div className="flex justify-around">
           <button
-            onClick={() => handleAdd()}
+            type="submit"
+            onClick={handleAdd}
             disabled={
               from < 1980 ||
               from > new Date().getFullYear() ||

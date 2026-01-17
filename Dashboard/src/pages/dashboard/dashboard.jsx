@@ -8,7 +8,7 @@ import { projectApi, skillApi, timeLineApi, userApi } from "../../Api";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+// import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 function dashboard() {
   const [user, setUser] = useState({});
@@ -63,18 +63,7 @@ function dashboard() {
     })();
   }, [loading]);
 
-  const handleEditDelete = async (id) => {
-    setLoading(true);
-    await timeLineApi
-      .delete(`/delete/${id}`, { withCredentials: true })
-      .then((res) => {
-        toast.success(res.data.message);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
-    setLoading(false);
-  };
+
 
   return (
     <div className="h-[85vh] p-2 overflow-y-auto font-serif">
@@ -213,9 +202,15 @@ function dashboard() {
           id="timeline"
           className="p-2 gap-2 w-full sm:w-[69%] rounded-lg bg-gray-800 mb-4"
         >
-          <h2 className="w-full p-2 rounded-lg bg-gray-900 mb-2 text-2xl font-bold items-center justify-between">
-            Time Line
-          </h2>
+          <div className="w-full p-2 rounded-lg bg-gray-900 mb-2 text-2xl font-bold items-center justify-between flex">
+            <h2>Time Line</h2>
+            <Link
+              to={"/manage/timeline"}
+              className="px-4 py-1 bg-blue-400 text-black blur-[0.5px] hover:blur-none hover:text-white hover:font-semibold hover:bg-blue-600 active:text-white active:font-semibold active:bg-blue-600 text-sm rounded-lg"
+            >
+              Manage
+            </Link>
+          </div>
           {allTimeLine?.map((timeLine) => (
             <div
               className="w-full flex bg-gray-800 p-2 rounded-lg mb-2"
@@ -223,7 +218,7 @@ function dashboard() {
             >
               <div className="w-full flex gap-2 ">
                 <div
-                  className={`outline-1 px-2 rounded-lg w-1/2 p-2 bg-gray-900`}
+                  className={`outline-1 px-2 rounded-lg w-1/2 bg-gray-900`}
                 >
                   <input
                     className="w-full h-full rounded-lg px-2 outline-none"
@@ -232,39 +227,19 @@ function dashboard() {
                   ></input>
                 </div>
                 <div
-                  className={`w-1/2 flex outline-1 px-2 rounded-lg justify-around items-center p-2 bg-gray-900`}
+                  className={`w-1/2 flex outline-1 px-2 rounded-lg justify-around items-center bg-gray-900`}
                 >
                   <input
-                    className="w-[40%] text-center outline-none h-full rounded-lg px-2"
+                    className="w-[40%] text-center outline-none h-full rounded-lg"
                     defaultValue={timeLine?.from}
                     disabled
                   ></input>
                   <span>-</span>
                   <input
-                    className={`w-[40%] text-center outline-none h-full rounded-lg px-2`}
+                    className={`w-[40%] text-center outline-none h-full rounded-lg`}
                     defaultValue={timeLine?.to}
                     disabled
                   ></input>
-                </div>
-                <div className="hidden sm:flex w-[28%] outline-1 rounded-lg justify-around items-center bg-gray-900">
-                  <Link
-                    className="text-yellow-800 hover:text-yellow-400 active:text-yellow-400 hover:scale-120 active:scale-120 group"
-                    to={`/edit/timeline/${timeLine?._id}`}
-                  >
-                    <EditIcon className="cursor-pointer" />
-                    <span className="absolute text-sm -bottom-6 -left-6 bg-gray-300 px-2 rounded-lg text-black font-semibold hidden group-hover:inline-block">
-                      Edit
-                    </span>
-                  </Link>
-                  <Link
-                    className="text-red-800 hover:text-red-400 active:text-red-400 hover:scale-120 active:scale-120 group"
-                    onClick={() => handleEditDelete(timeLine?._id)}
-                  >
-                    <DeleteIcon />
-                    <span className="absolute text-sm -bottom-6 -left-6 bg-gray-300 px-2 rounded-lg text-black font-semibold hidden group-hover:inline-block">
-                      Delete
-                    </span>
-                  </Link>
                 </div>
               </div>
             </div>
