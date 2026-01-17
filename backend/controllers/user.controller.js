@@ -113,7 +113,6 @@ const loginUser = asyncHandler(async (req, res, next) => {
   }
 
   const user = await User.findOne({ email: email.toLowerCase() })
-  );
   if (!user) {
     return next(new ErrorHandler("Invalid Email ID", 400));
   }
