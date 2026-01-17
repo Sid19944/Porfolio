@@ -2,66 +2,68 @@ import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const userSchema = new Schema({
-  fullName: {
-    type: String,
-    required: [true, "Full Name is required"],
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    minlength: [8, "Password must at lest 8 character"],
-    required: true,
-    select: false,
-  },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
-  aboutMe: {
-    type: String,
-    required: true,
-  },
-  avatar: {
-    public_id: {
+const userSchema = new Schema(
+  {
+    fullName: {
+      type: String,
+      required: [true, "Full Name is required"],
+    },
+    username: {
       type: String,
       required: true,
     },
-    url: {
+    password: {
+      type: String,
+      minlength: [8, "Password must at lest 8 character"],
+      required: true,
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+    },
+    phone: {
       type: String,
       required: true,
     },
-  },
-  resume: {
-    public_id: {
+    aboutMe: {
       type: String,
       required: true,
     },
-    url: {
+    avatar: {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+    resume: {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+    portfolioUrl: String,
+    githubUrl: String,
+    instagramUrl: String,
+    linkedInUrl: String,
+    refreshToken: {
       type: String,
-      required: true,
+      select: false,
+    },
+    resetToken: {
+      type: String,
+      select: false,
     },
   },
-  portfolioUrl: String,
-  githubUrl: String,
-  instagramUrl: String,
-  linkedInUrl: String,
-  refreshToken: {
-    type: String,
-    select: false,
-  },
-  resetToken: {
-    type: String,
-    select: false,
-  },
-},{timestamps : true});
+  { timestamps: true },
+);
 
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
@@ -82,7 +84,7 @@ userSchema.methods.generateToken = function () {
     process.env.JWT_ACCESS_TOKEN_SECRET,
     {
       expiresIn: process.env.TOKEN_EXPIREY,
-    }
+    },
   );
 };
 
@@ -94,7 +96,7 @@ userSchema.methods.generateRefreshToken = function () {
     process.env.JWT_REFRESH_TOKEN_SECRET,
     {
       expiresIn: process.env.REFRESH_TOKEN_EXPIREY,
-    }
+    },
   );
 };
 
@@ -106,7 +108,7 @@ userSchema.methods.generateResetToken = function () {
     process.env.JWT_RESET_TOKEN_SECRET,
     {
       expiresIn: process.env.RESET_TOKEN_EXPIREY,
-    }
+    },
   );
 };
 
