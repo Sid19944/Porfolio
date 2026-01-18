@@ -115,7 +115,7 @@ function UpdateProfile() {
       });
   }, [Loading]);
   return (
-    <div className="h-screen py-4 ">
+    <div className="h-screen py-4 overflow-y-auto">
       <div className="flex flex-col items-center justify-center sm:justify-around gap-4 ">
         <div className="w-[90%] md:w-[60%] outline-1 p-2 gap-4 flex flex-col rounded-lg mb-25">
           <h1 className="text-3xl font-semibold text-center m-6 sticky top-0 bg-black rounded-lg py-2 outline-1">
