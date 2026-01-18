@@ -2,19 +2,19 @@ import nodemialer from "nodemailer";
 import ErrorHandler from "./errorHandler.js";
 
 const transporter = nodemialer.createTransport({
-  // host: "smtp.gmail.com",
+  host: "smtp.gmail.com",
   service: "gmail",
   port: 465,
   secure: true,
-  
+
   auth: {
-    user: "realme19948@gmail.com",
-    pass: "udurggqkwptcczln",
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
   },
 });
 
 const sendMail = async (options) => {
-  console.log(options)
+  console.log(options);
   try {
     const info = await transporter.sendMail({
       from: `"PORTFOLIO" <realme19948@gmail.com>`,
