@@ -14,6 +14,6 @@ router.route("/add").post(verifyJWT,addTimeLine);
 router.route("/one/:id").get(getOne);
 router.route("/edit/:id").put(verifyJWT,editTimeLine);
 router.route("/delete/:id").delete(verifyJWT,deleteTimeLine);
-router.route("/all").get(verifyJWT,allTimeLine);
+router.route("/all").get(allTimeLine);
 
 export default router;
