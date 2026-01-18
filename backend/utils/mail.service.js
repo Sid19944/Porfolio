@@ -11,7 +11,7 @@ const transporter = nodemialer.createTransport({
   },
 });
 
-const sendMail = async (options) => {
+const sendMail = async (req,res,options) => {
   try {
     const info = await transporter.sendMail({
       from: `"PORTFOLIO" <realme19948@gmail.com>`,
