@@ -13,7 +13,7 @@ const transporter = nodemialer.createTransport({
   },
 });
 
-const sendMail = async (options, next) => {
+const sendMail = async (options) => {
   console.log(options)
   try {
     const info = await transporter.sendMail({
@@ -26,12 +26,12 @@ const sendMail = async (options, next) => {
     console.log("mail successfully send");
   } catch (err) {
     console.log(err);
-    return next(
-      new ErrorHandler(
-        `Something wrong while send mail to the user, Error in mail.server, ${err} `,
-        500,
-      ),
-    );
+    // return next(
+    //   new ErrorHandler(
+    //     `Something wrong while send mail to the user, Error in mail.server, ${err} `,
+    //     500,
+    //   ),
+    // );
   }
 };
 
