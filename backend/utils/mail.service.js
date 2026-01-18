@@ -1,4 +1,5 @@
 import nodemialer from "nodemailer";
+import ErrorHandler from "./errorHandler";
 
 const transporter = nodemialer.createTransport({
   host: "smtp.gmail.com",
@@ -11,7 +12,8 @@ const transporter = nodemialer.createTransport({
   },
 });
 
-const sendMail = async (req,res,options) => {
+const sendMail = async (options, next) => {
+  console.log(options)
   try {
     const info = await transporter.sendMail({
       from: `"PORTFOLIO" <realme19948@gmail.com>`,
@@ -22,11 +24,13 @@ const sendMail = async (req,res,options) => {
     console.log(info);
     console.log("mail successfully send");
   } catch (err) {
-    console.log(err)
-    return res.status(500).json({
-      success: false,
-      message: `Something wrong while send mail to the user, Error in mail.server, ${err} `,
-    });
+    console.log(err);
+    return next(
+      new ErrorHandler(
+        `Something wrong while send mail to the user, Error in mail.server, ${err} `,
+        500,
+      ),
+    );
   }
 };
 
