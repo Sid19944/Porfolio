@@ -22,6 +22,7 @@ const sendMail = async (req,res,options) => {
     console.log(info);
     console.log("mail successfully send");
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       success: false,
       message: `Something wrong while send mail to the user, Error in mail.server, ${err} `,
