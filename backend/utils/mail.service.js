@@ -21,14 +21,14 @@ const sendMail = async (options, next) => {
       subject: options.subject,
       html: options.message,
     });
-    console.log(info);
+    // console.log(info);
     console.log("mail successfully send");
   } catch (err) {
     // console.log(err);
 
     return next(
       new ErrorHandler(
-        `Something wrong while send mail to the user, Error in mail.server, ${err} `,
+        `Something wrong while send mail to the user, Error in mail.server,`,
         500,
       ),
     );
