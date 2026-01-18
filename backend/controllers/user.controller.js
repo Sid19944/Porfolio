@@ -374,7 +374,7 @@ const SendForgotPasswordLink = asyncHandler(async (req, res, next) => {
   user.resetToken = resetToken;
   await user.save({ validateBeforeSave: false });
 
-  sendMail({
+  await sendMail({
     sender: email?.toLowerCase(),
     subject: "Forget Password",
     message: `<h1>Froget your password by <br><br> <a href="${process.env.DASHBOARD_URL}/forgot/password/${resetToken}">  click here </a> <br> Link valid for 5 minutes only</h1>`,

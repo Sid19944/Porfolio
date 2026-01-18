@@ -2,10 +2,11 @@ import nodemialer from "nodemailer";
 import ErrorHandler from "./errorHandler.js";
 
 const transporter = nodemialer.createTransport({
-  host: "smtp.gmail.com",
+  // host: "smtp.gmail.com",
+  service: "gmail",
   port: 465,
   secure: true,
-  service: "gmail",
+  
   auth: {
     user: "realme19948@gmail.com",
     pass: "udurggqkwptcczln",
