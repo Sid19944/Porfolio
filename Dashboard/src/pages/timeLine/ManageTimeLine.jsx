@@ -105,11 +105,12 @@ function ManageTimeLine() {
                 </Link>
               </div>
               <div className="outline-1 w-full rounded-lg p-2 bg-gray-900">
-                <input type="text" defaultValue={timeLine?.about}/>
-
+                <input
+                  type="text"
+                  defaultValue={timeLine?.about}
+                  className="w-full"
+                />
               </div>
-
-
             </div>
           </div>
         ))}

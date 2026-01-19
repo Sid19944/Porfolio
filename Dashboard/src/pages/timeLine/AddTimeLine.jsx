@@ -26,7 +26,7 @@ function AddTimeLine() {
         setTo("");
         setLoading(false);
         setTimeout(() => {
-          navigate("/");
+          navigate("/manage/timeline");
         }, 2000);
       })
       .catch((err) => {

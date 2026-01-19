@@ -23,7 +23,7 @@ function ManageTimeLine() {
       .then((res) => {
         toast.success(res.data.message);
         setTimeout(() => {
-          navigate("/");
+          navigate("/manage/timeline");
         }, 2000);
       })
       .catch((err) => {
@@ -126,7 +126,7 @@ function ManageTimeLine() {
             Submit
           </button>
           <Link
-            to={"/"}
+            to={"/manage/timeline"}
             className="outline-1 py-1 px-3  rounded-lg bg-blue-500 hover:bg-blue-800 text-black font-semibold hover:text-white cursor-pointer active:text-white"
           >
             Cancle
