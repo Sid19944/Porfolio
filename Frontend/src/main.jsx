@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <div className="min-h-screen bg-black text-white overflow-auto">
+  <div className="min-h-screen bg-black text-white overflow-y-auto">
     <BrowserRouter>
       <Routes>
         <Route path="/*" element={<App />} />
