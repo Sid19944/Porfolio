@@ -294,7 +294,7 @@ function Home() {
             <img
               src={user?.avatar?.url}
               alt="Avatar"
-              className="w-full rounded-lg max-h-[60px] max-w-[85px]"
+              className="w-full  max-h-[60px] max-w-[60px] rounded-full shadow-[0px_0px_4px_4px] shadow-blue-500"
             />
           </Link>
           <span className="text-xl">

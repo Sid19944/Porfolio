@@ -77,7 +77,7 @@ function dashboard() {
               <img
                 src={user?.avatar?.url}
                 alt="Avatar"
-                className="max-w-50 max-h-40 float-left outline-1 rounded-2xl mr-2 mb-1"
+                className="max-w-50 max-h-40 float-left outline-1 rounded-2xl mr-2 mb-1 shadow-[0px_0px_4px_4px] shadow-blue-500"
               />
               <p>About Me</p>
               <Link className="w-fit inline-block text-center rounded-sm hover:rounded-2xl bg-blue-400 font-semibold px-2 text-black blur-[0.5px] hover:blur-none active:blur-none hover:rounded-lg hover:bg-blue-600 hover:text-white active:text-white cursor-pointer">
