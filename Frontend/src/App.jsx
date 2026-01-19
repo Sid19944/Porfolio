@@ -5,14 +5,15 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Typewriter } from "react-simple-typewriter";
 
-import CircleIcon from "@mui/icons-material/Circle";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import PublishIcon from "@mui/icons-material/Publish";
 
 import { userUrl, projectUrl, skillUrl, timeLineUrl, messageUrl } from "./Api";
+import LeftImage from "./subComponect/LeftImage";
+import RightImage from "./subComponect/RightImage";
 
 function App() {
   const [section, setSection] = useState("profile");
@@ -20,6 +21,37 @@ function App() {
   const [timeLines, setTimeLines] = useState([]);
   const [skills, setSkills] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [contactForm, setContactForm] = useState({
+    senderName: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChangeContactForm = (e) => {
+    setContactForm({ ...contactForm, [e.target.name]: e.target.value });
+  };
+
+  const handleContactSumbit = () => {
+    setLoading(true);
+    messageUrl
+      .post("/send", contactForm)
+      .then((res) => {
+        toast.success(res?.data?.message);
+        setLoading(false);
+        setContactForm({
+          senderName: "",
+          email: "",
+          message: "",
+        });
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+        setLoading(false);
+        console.log(err?.response);
+      });
+  };
 
   useEffect(() => {
     userUrl
@@ -60,31 +92,31 @@ function App() {
   return (
     <div className="w-full flex justify-center p-1 font-serif">
       <div className="w-full max-w-[900px] flex text-sm sm:text-lg flex-wrap">
-        <nav className="flex justify-end w-full gap-3 group py-2 border-b-1 mb-4 bg-black z-3 ">
+        <nav className="flex justify-end w-full gap-3 group py-2 border-b mb-4 bg-black z-3 ">
           <a
             href="#aboutMe"
-            className={`${section == "profile" ? "text-blue-500 font-semibold underline" : ""}  px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none `}
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none `}
             onClick={() => setSection("profile")}
           >
             Profile
           </a>
           <a
             href="#skill"
-            className={`${section == "skill" ? "text-blue-500 font-semibold underline" : ""}  px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
             onClick={() => setSection("skill")}
           >
             Skill
           </a>
           <a
             href="#project"
-            className={`${section == "project" ? "text-blue-500 font-semibold underline" : ""}  px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
             onClick={() => setSection("project")}
           >
             Project
           </a>
           <a
             href="#contactMe"
-            className={`${section == "contactMe" ? "text-blue-500 font-semibold underline" : ""}  px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
             onClick={() => setSection("contactMe")}
           >
             Contact Me
@@ -92,7 +124,7 @@ function App() {
         </nav>
 
         <div className="w-full flex px-2 flex-wrap gap-5 mt-15">
-          <div id="hero" className="mb-5 w-full overflow-x-hidden">
+          <div id="hero" className="mb-10 w-full overflow-x-hidden">
             <div className="text-sm flex gap-1 items-center mb-3">
               <span className="bg-green-400 h-2 w-2 rounded-full"></span>
               <span className="font-extralight font-mono text-[12px]">
@@ -100,7 +132,7 @@ function App() {
               </span>
             </div>
             <div className="w-full">
-              <span className="tracking-[2px] mb-3">
+              <span className="tracking-[2px] mb-3 text-lg sm:text-xl">
                 Hey, I'm {user?.fullName}
               </span>
               <h1 className="text-2xl tracking-[15px] animate-pulse mb-3">
@@ -169,7 +201,7 @@ function App() {
             </div>
           </div>
 
-          <div id="timeline" className="mb-5 w-full overflow-x-hidden">
+          <div id="timeline" className="mb-10 w-full overflow-x-hidden">
             <div className="relative flex justify-center items-center mb-3">
               <div className=" z-2 bg-black">
                 <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
@@ -179,7 +211,7 @@ function App() {
 
               <span className="border-1 w-full absolute"></span>
             </div>
-            <ol class="relative border-s border-default ms-2 border-blue-600">
+            <ol className="relative border-s border-default ms-2 border-blue-600">
               {timeLines?.map((timeLine) => (
                 <li key={timeLine?._id} className="mb-5  ms-5">
                   <span className="h-2 w-2 bg-blue-600 absolute rounded-full -left-[4.5px] shadow-[0px_0px_3px_3px] shadow-blue-600"></span>
@@ -195,7 +227,7 @@ function App() {
             </ol>
           </div>
 
-          <div id="aboutMe" className="mb-5 w-full overflow-x-hidden">
+          <div id="aboutMe" className="mb-10 w-full overflow-x-hidden">
             <div className="relative w-full flex justify-center items-center mb-3">
               <div className="bg-black z-2">
                 <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
@@ -204,39 +236,39 @@ function App() {
               </div>
               <span className="absolute border-1 w-full"></span>
             </div>
-            <p className="text-center relative -top-3 opacity-40 text-sm">
+            <p className="text-center relative -top-3 opacity-60 text-sm">
               ALLOW ME TO INTRODUCE MYSELF
             </p>
 
             <div className="flex leading-relaxed">
               <div className="p-8">
-                <img
-                  src={user?.avatar?.url}
-                  alt="avatar"
-                  className="shadow-[0px_0px_4px_4px] w-full max-w-35 md:max-w-40 mb-4 mx-20 rotate-15 float-start"
-                />
+                <div className="flex justify-center w-fit float-start">
+                  <img
+                    src={user?.avatar?.url}
+                    alt="avatar"
+                    className="shadow-[0px_0px_4px_4px] w-full max-w-35 md:max-w-40 mb-4 mx-20 rotate-15"
+                  />
+                </div>
                 <p className="font-bold">{user?.fullName}</p>
-                <p className="font-bold">{user?.email}</p>
-                <p className="font-sans font-bold">{user?.phone}</p>
                 {user?.aboutMe}
               </div>
-              {/* <div className="w-1/2 sm:w-6/10">
-                <p></p>
-              </div> */}
             </div>
           </div>
 
-          <div id="skill" className="mb-5 w-full">
+          <div id="skill" className="mb-10 w-full">
             <div className="relative w-full flex justify-center items-center mb-3">
-              <h1 className="animate-pulse tracking-[8px] text-4xl font-extrabold ">
-                Skills
-              </h1>
+              <div className="bg-black z-2">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
+                  SKILLS
+                </h1>
+              </div>
+              <span className="absolute border-1 w-full"></span>
             </div>
             <div className="flex flex-wrap gap-2 outline-1 p-2 rounded-lg outline-gray-600">
               {skills?.map((skill) => (
                 <div
                   key={skill?._id}
-                  className="w-22 h-22 outline-1 rounded-lg"
+                  className="w-22 h-22 outline-1 rounded-lg overflow-hidden"
                 >
                   <img
                     src={skill?.skillImage?.url}
@@ -248,22 +280,155 @@ function App() {
             </div>
           </div>
 
-          <div id="project" className="mb-5 w-full">
-            <div className="relative w-full flex justify-center items-center mb-3">
+          <div id="project" className="mb-10 w-full overflow-x-hidden">
+            <div className="relative w-full flex justify-center items-center mb-8">
               <div className="bg-black z-2">
-                <h1 className="animate-pulse tracking-[8px] text-5xl font-extrabold font-mono">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
                   PROJECTS
                 </h1>
               </div>
               <span className="absolute border-1 w-full"></span>
             </div>
 
-            {/* {projects?.map((project) => (
-              <div className="flex flex-wrap gap-2">
-                <img src={project?.image.url} alt="" className="h-35 w-35"/>
+            {projects?.map((project, idx) =>
+              idx % 2 != 0 ? (
+                <LeftImage key={project._id} project={project} />
+              ) : (
+                <RightImage key={project._id} project={project} />
+              ),
+            )}
+          </div>
 
+          <div id="contactMe" className="mb-10 w-full">
+            <div className="relative w-full flex justify-center items-center mb-8">
+              <div className="bg-black z-2">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
+                  Contact Me
+                </h1>
               </div>
-            ))} */}
+              <span className="absolute border-1 w-full"></span>
+            </div>
+
+            <div className="flex flex-wrap">
+              <div className="w-full md:w-4/10 text-3xl font-semibold flex justify-center flex-col">
+                <div className="flex gap-2 md:block flex-wrap">
+                  <h1 className="mb-3">Have a Query?</h1>
+                  <h1 className="mb-3">Let's Talk!</h1>
+                </div>
+                <button
+                  disabled={
+                    contactForm.senderName?.trim() == "" ||
+                    contactForm.email?.trim() == "" ||
+                    contactForm.message?.trim() == "" ||
+                    loading
+                  }
+                  onClick={handleContactSumbit}
+                  className="blur-[0.5px] hover:blur-none active:blur-none disabled:bg-gray-200 disabled:cursor-not-allowed disabled cursor-pointer hidden md:inline-block outline-1 px-5 py-1 bg-blue-400 w-fit hover:bg-blue-800 text-black hover:text-white hover:rounded-2xl active:bg-blue-800 active:text-white active:rounded-2xl rounded-lg"
+                >
+                  Submit <PublishIcon />
+                </button>
+              </div>
+              <div className="w-full md:w-6/10 flex flex-wrap gap-5">
+                <div className="flex flex-wrap w-full">
+                  <label htmlFor="name" className="w-full">
+                    Name{" "}
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="senderName"
+                    value={contactForm.senderName}
+                    placeholder="Enter Your Name"
+                    onChange={handleChangeContactForm}
+                    className=" w-full rounded-lg p-2 hover:border-b-3 hover:border-l-3 active:border-b-3 active:border-l-3 border-b border-l outline-none border-blue-700 "
+                  />
+                </div>
+                <div className="flex flex-wrap w-full">
+                  <label htmlFor="email" className="w-full">
+                    Email{" "}
+                  </label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    value={contactForm.email}
+                    placeholder="Enter Your Email ID"
+                    onChange={handleChangeContactForm}
+                    className=" w-full rounded-lg p-2 hover:border-b-3 hover:border-l-3 active:border-b-3 active:border-l-3 border-b border-l outline-none border-blue-700 "
+                  />
+                </div>
+                <div className="flex flex-wrap w-full">
+                  <label htmlFor="message" className="w-full">
+                    Message{" "}
+                  </label>
+                  <textarea
+                    rows={5}
+                    id="message"
+                    name="message"
+                    value={contactForm.message}
+                    placeholder="Enter Your Message"
+                    onChange={handleChangeContactForm}
+                    className=" w-full rounded-lg p-2 hover:border-b-3 hover:border-l-3 active:border-b-3 active:border-l-3 border-b border-l outline-none border-blue-700"
+                  />
+                </div>
+                <div className="w-full text-end text-lg font-semibold">
+                  <button
+                    disabled={
+                      contactForm.senderName?.trim() == "" ||
+                      contactForm.email?.trim() == "" ||
+                      contactForm.message?.trim() == "" ||
+                      loading
+                    }
+                    onClick={handleContactSumbit}
+                    className="blur-[0.5px] hover:blur-none active:blur-none disabled:bg-gray-200 disabled:cursor-not-allowed cursor-pointer md:hidden inline-block outline-1 px-5 py-1 bg-blue-400 w-fit hover:bg-blue-800 text-black hover:text-white hover:rounded-2xl active:bg-blue-800 active:text-white active:rounded-2xl rounded-lg"
+                  >
+                    Submit <PublishIcon />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+
+          <nav className="flex justify-end w-full gap-3 group py-2 border-b mb-4 bg-black z-3 ">
+          <a
+            href="#aboutMe"
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none `}
+            onClick={() => setSection("profile")}
+          >
+            Profile
+          </a>
+          <a
+            href="#skill"
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+            onClick={() => setSection("skill")}
+          >
+            Skill
+          </a>
+          <a
+            href="#project"
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+            onClick={() => setSection("project")}
+          >
+            Project
+          </a>
+          <a
+            href="#contactMe"
+            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+            onClick={() => setSection("contactMe")}
+          >
+            Contact Me
+          </a>
+        </nav>
+
+        <div id="footer" className="mb-5 relative flex items-center w-full">
+            <div className="bg-black z-2">
+              <h1 className="text-3xl animate-pulse">
+                Thank you for Scrolling
+              </h1>
+            </div>
+            <span className="w-full border-b-2 block absolute"></span>
           </div>
         </div>
       </div>
