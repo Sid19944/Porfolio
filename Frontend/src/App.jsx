@@ -172,7 +172,7 @@ function App() {
           <div id="timeline" className="mb-5 w-full overflow-x-hidden">
             <div className="relative flex justify-center items-center mb-3">
               <div className=" z-2 bg-black">
-                <h1 className="animate-pulse tracking-[8px] text-5xl font-extrabold font-mono">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
                   Timeline
                 </h1>
               </div>
@@ -198,7 +198,7 @@ function App() {
           <div id="aboutMe" className="mb-5 w-full overflow-x-hidden">
             <div className="relative w-full flex justify-center items-center mb-3">
               <div className="bg-black z-2">
-                <h1 className="animate-pulse tracking-[8px] text-5xl font-extrabold font-mono">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
                   ABOUT ME
                 </h1>
               </div>
