@@ -6,7 +6,7 @@ function RightImage({ project }) {
   return (
     <div className="flex p-1 mb-8 border border-gray-500 rounded-lg flex-wrap-reverse items-center">
       <div className="w-full sm:w-6/10 p-2">
-        <h1 className="text-2xl font-bold tracking-[2px] mb-3 sm:block">
+        <h1 className="text-lg md:text-2xl font-bold tracking-[2px] mb-3 sm:block">
           {project?.title}
         </h1>
         <ul className="pl-4 hidden sm:block">
