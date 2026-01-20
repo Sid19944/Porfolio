@@ -80,9 +80,9 @@ function Single() {
             <p className="font-bold mb-1 underline">
               Github Repository Link <GitHubIcon />
             </p>
-            <p className="rounded-lg w-full text-sm text-blue-400 hover:underline cursor-pointer">
+            <Link to={project?.gitHubUrl} target="_blank" className="rounded-lg w-full text-sm text-blue-400 hover:underline cursor-pointer">
               {project.gitHubUrl}
-            </p>
+            </Link>
           </div>
         ) : (
           ""
@@ -91,9 +91,9 @@ function Single() {
         {project?.projectUrl ? (
           <div className="mb-4">
             <p className="font-bold mb-1 underline">Project Link</p>
-            <p className="rounded-lg w-full text-sm text-blue-600 cursor-pointer">
+            <Link to={project?.projectUrl} target="_blank" className="rounded-lg w-full text-sm text-blue-400 hover:underline cursor-pointer">
               {project?.projectUrl}
-            </p>
+            </Link>
           </div>
         ) : (
           ""
