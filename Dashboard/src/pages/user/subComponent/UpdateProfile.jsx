@@ -177,7 +177,7 @@ function UpdateProfile() {
           </div>
           <div>
             <textarea
-              rows={5}
+              rows={10}
               name="aboutMe"
               placeholder="aboutMe"
               defaultValue={aboutMe}

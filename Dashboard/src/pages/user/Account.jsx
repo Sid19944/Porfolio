@@ -35,7 +35,7 @@ function Account() {
             </Link>
           </li>
         </ul>
-        <div className="w-full overflow-y-auto h-screen pb-25">
+        <div className="w-full overflow-y-auto h-screen">
           {(() => {
             switch (activePage) {
               case "profile":

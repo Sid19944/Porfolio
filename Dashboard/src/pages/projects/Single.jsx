@@ -51,9 +51,9 @@ function Single() {
           <p className="font-bold mb-3 underline">Description</p>
 
           {description.length ? (
-            <ul className="pl-4">
+            <ul className="list-disc list-inside">
               {description.map((desc, idx) => (
-                <li className="list-disc " key={idx}>
+                <li key={idx}>
                   {desc}.
                 </li>
               ))}
@@ -101,9 +101,9 @@ function Single() {
 
         <div className="flex flex-col justify-between w-full h-fit mb-3">
           <p className="font-bold mb-3 underline">Used Technologies</p>
-          <ul>
+          <ul className="list-disc list-inside">
             {project?.technologies?.map((tech,idx) => (
-              <li key={idx} className="list-disc">{tech.skillName}</li>
+              <li key={idx}>{tech.skillName}</li>
             ))}
           </ul>
         </div> 

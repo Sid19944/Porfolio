@@ -64,7 +64,7 @@ function Profile() {
           </div>
           <div className="w-[90%] outline-1 rounded-lg p-2">
             <textarea
-              rows={4}
+              rows={10}
               className="h-full w-full rounded-lg p-2"
               disabled
               value={user?.aboutMe}
@@ -144,9 +144,9 @@ function Profile() {
           ) : (
             ""
           )}
-          <div className="w-[90%] rounded-lg outline-1 p-2 gap-2 flex ">
+          <div className="w-[90%] rounded-lg outline-1 p-2 gap-2 flex flex-wrap">
             {user?.iAm?.map((item) => (
-              <span>{item},</span>
+              <span className="w-fit">{item},</span>
             ))}
           </div>
         </div>
