@@ -29,6 +29,8 @@ function App() {
     message: "",
   });
 
+  const aboutMeDescription = user?.aboutMe?.split(".");
+
   const handleChangeContactForm = (e) => {
     setContactForm({ ...contactForm, [e.target.name]: e.target.value });
   };
@@ -197,7 +199,11 @@ function App() {
                 </div>
               </div>
 
-              <p className="my-5 tracking-[2px]">{user?.aboutMe}</p>
+              <ul className="list-disc list-inside text-white marker:text-blue-700">
+                {aboutMeDescription?.map(
+                  (el, idx) => el?.trim() != "" && <li key={idx}>{el}.</li>,
+                )}
+              </ul>
             </div>
           </div>
 
@@ -250,7 +256,11 @@ function App() {
                   />
                 </div>
                 <p className="font-bold">{user?.fullName}</p>
-                {user?.aboutMe}
+                <ul className="list-disc list-inside text-white marker:text-blue-700">
+                  {aboutMeDescription?.map(
+                    (el, idx) => el?.trim() != "" && <li key={idx}>{el}.</li>,
+                  )}
+                </ul>
               </div>
             </div>
           </div>
@@ -268,7 +278,7 @@ function App() {
               {skills?.map((skill) => (
                 <div
                   key={skill?._id}
-                  className="w-22 h-22 outline-1 rounded-lg overflow-hidden"
+                  className="w-22 h-22 md:w-28 md:h-28 outline-1 rounded-lg overflow-hidden"
                 >
                   <img
                     src={skill?.skillImage?.url}
@@ -389,44 +399,40 @@ function App() {
             </div>
           </div>
 
-          
-
           <nav className="flex justify-end w-full gap-3 group py-2 border-b mb-4 bg-black z-3 ">
-          <a
-            href="#aboutMe"
-            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none `}
-            onClick={() => setSection("profile")}
-          >
-            Profile
-          </a>
-          <a
-            href="#skill"
-            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
-            onClick={() => setSection("skill")}
-          >
-            Skill
-          </a>
-          <a
-            href="#project"
-            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
-            onClick={() => setSection("project")}
-          >
-            Project
-          </a>
-          <a
-            href="#contactMe"
-            className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
-            onClick={() => setSection("contactMe")}
-          >
-            Contact Me
-          </a>
-        </nav>
+            <a
+              href="#aboutMe"
+              className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none `}
+              onClick={() => setSection("profile")}
+            >
+              Profile
+            </a>
+            <a
+              href="#skill"
+              className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+              onClick={() => setSection("skill")}
+            >
+              Skill
+            </a>
+            <a
+              href="#project"
+              className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+              onClick={() => setSection("project")}
+            >
+              Project
+            </a>
+            <a
+              href="#contactMe"
+              className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none`}
+              onClick={() => setSection("contactMe")}
+            >
+              Contact Me
+            </a>
+          </nav>
 
-        <div id="footer" className="mb-5 relative flex items-center w-full">
+          <div id="footer" className="mb-5 relative flex items-center w-full">
             <div className="bg-black z-2">
-              <h1 className="text-3xl animate-pulse">
-                Thank you for Scrolling
-              </h1>
+              <h1 className="text-xl animate-pulse">Thank you for Scrolling</h1>
             </div>
             <span className="w-full border-b-2 block absolute"></span>
           </div>
