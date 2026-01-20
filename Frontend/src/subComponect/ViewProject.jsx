@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { projectUrl } from "../Api";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -46,9 +46,7 @@ function ViewProject() {
           {description.length ? (
             <ul className="list-disc list-inside">
               {description?.map((desc, idx) => (
-                <li  key={idx}>
-                  {desc}.
-                </li>
+                <li key={idx}>{desc}.</li>
               ))}
             </ul>
           ) : (
@@ -73,9 +71,13 @@ function ViewProject() {
             <p className="font-bold mb-1 underline">
               Github Repository Link <GitHubIcon />
             </p>
-            <p className="rounded-lg w-full text-sm text-blue-400 hover:underline cursor-pointer">
+            <Link
+              to={project.gitHubUrl}
+              target="_blank"
+              className="rounded-lg w-full text-sm text-blue-400 hover:underline active:underline cursor-pointer"
+            >
               {project.gitHubUrl}
-            </p>
+            </Link>
           </div>
         ) : (
           ""
@@ -84,9 +86,13 @@ function ViewProject() {
         {project?.projectUrl ? (
           <div className="mb-4">
             <p className="font-bold mb-1 underline">Project Link</p>
-            <p className="rounded-lg w-full text-sm text-blue-600 cursor-pointer">
+            <Link
+              to={project?.projectUrl}
+              target="_blank"
+              className="rounded-lg w-full text-sm text-blue-400 hover:underline active:underline cursor-pointer"
+            >
               {project?.projectUrl}
-            </p>
+            </Link>
           </div>
         ) : (
           ""
@@ -96,9 +102,7 @@ function ViewProject() {
           <p className="font-bold mb-3 underline">Used Technologies</p>
           <ul className="list-disc list-inside">
             {project?.technologies?.map((tech, idx) => (
-              <li key={idx} >
-                {tech.skillName}
-              </li>
+              <li key={idx}>{tech.skillName}</li>
             ))}
           </ul>
         </div>
