@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function RightImage({ project }) {
   const description = project?.description?.split(".");
   return (
-    <div className="flex p-1 mb-8 border border-gray-500 rounded-lg flex-wrap-reverse">
+    <div className="flex p-1 mb-8 border border-gray-500 rounded-lg flex-wrap-reverse items-center">
       <div className="w-full sm:w-6/10 p-2">
         <h1 className="text-2xl font-bold tracking-[2px] mb-3 sm:block">
           {project?.title}
@@ -21,7 +21,7 @@ function RightImage({ project }) {
         </ul>
       </div>
       <div className="w-full sm:w-4/10 max-h-60 p-3 flex justify-center">
-        <Link to={`/view/${project?._id}`}>
+        <Link to={`/view/${project?._id}`} className="">
           <img
             src={project?.image?.url}
             alt="Project Image"
