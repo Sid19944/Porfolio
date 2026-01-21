@@ -20,7 +20,7 @@ function RightImage({ project }) {
           )}
         </ul>
       </div>
-      <div className="w-full sm:w-4/10 max-h-60 p-3 flex justify-center">
+      <div className="w-full sm:w-4/10 max-h-60 p-3 flex justify-center hover:scale-105">
         <Link to={`/view/${project?._id}`} className="">
           <img
             src={project?.image?.url}
