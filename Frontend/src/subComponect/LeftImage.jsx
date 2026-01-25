@@ -1,17 +1,18 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function LeftImage({ project }) {
   const description = project?.description?.split(".");
   return (
     <div className="flex p-1 mb-8 border border-gray-500 rounded-lg flex-wrap items-center">
-      <div className="w-full sm:w-4/10 max-h-60 p-3 flex justify-center hover:scale-105 ">
+      <div className="w-full sm:w-4/10 max-h-60 p-3 flex justify-center hover:scale-105 duration-700 hover:animate-bounce">
         <Link to={`/view/${project?._id}`}>
           <img
             src={project?.image?.url}
             alt="Project Image"
             className="h-full shadow-[0px_0px_5px_5px] shadow-blue-600 rounded-lg"
           />
+          <p className="text-gray-500 text-center">click to view more detail</p>
         </Link>
       </div>
       <div className="w-full sm:w-6/10 p-2">
