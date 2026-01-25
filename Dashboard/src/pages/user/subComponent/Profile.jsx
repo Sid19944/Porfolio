@@ -7,12 +7,11 @@ import { userApi } from "../../../Api";
 
 function Profile() {
   const [user, setUser] = useState({});
-  // console.log(user);
+
   useEffect(() => {
     userApi
       .get("/me")
       .then((res) => {
-        // console.log(res.data);
         setUser(res.data.user);
       })
       .catch((err) => {
@@ -24,12 +23,12 @@ function Profile() {
     <div className="h-[80vh]">
       <div id="profile" className="flex p-4 sm:max-w-3xl lg:max-w-5xl">
         <div className="flex gap-2 flex-wrap w-full h-full justify-around">
-          <div className="flex w-[90%] sm:w-full gap-2 min-w-[230px] justify-around flex-wrap">
+          <div className="flex w-[90%] sm:w-full gap-2 min-w-57 justify-around flex-wrap">
             <Link to={user?.avatar?.url} className="group">
               <img
                 src={user?.avatar?.url}
                 alt="Avatar"
-                className="max-h-[200px] max-w-[200px]"
+                className="max-h-50 max-w-50"
               />
               <span className="group-hover:inline-block hidden absolute">
                 Avatar
@@ -39,7 +38,7 @@ function Profile() {
               <img
                 src={user?.resume?.url}
                 alt="Avatar"
-                className="max-h-[200px] max-w-[200px]"
+                className="max-h-50 max-w-50"
               />
               <span className="group-hover:inline-block hidden absolute">
                 Resume

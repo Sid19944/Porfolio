@@ -67,7 +67,7 @@ function AddProject({ techs }) {
       });
   };
   return (
-    <div className="h-[85vh] p-4 font-serif overflow-y-auto">
+    <div className="h-[100vh] p-4 font-serif overflow-y-auto">
       <div className="flex justify-center items-center">
         <form className="w-[95%] md:w-[75%] lg:w-1/2 p-4 ">
           <h1 className="outline-1 p-2 rounded-b-lg text-center font-bold mb-4 bg-gray-400 sticky top-0">
