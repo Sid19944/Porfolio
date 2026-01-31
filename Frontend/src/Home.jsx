@@ -309,7 +309,7 @@ function Home() {
                   PROJECTS
                 </h1>
               </div>
-              <span className="absolute border-1 w-full"></span>
+              <span className="absolute border w-full"></span>
             </div>
 
             {projects?.map((project, idx) =>
