@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import OnlinePredictionIcon from "@mui/icons-material/OnlinePrediction";
+import GitHubIcon from "@mui/icons-material/GitHub";
+
 function LeftImage({ project }) {
   const description = project?.description?.split(".");
   return (
@@ -17,6 +20,15 @@ function LeftImage({ project }) {
       <h1 className="text-lg md:text-2xl font-bold tracking-[2px] mb-3 sm:block text-center w-full">
         {project?.title}
       </h1>
+      <div className="text-sm flex items-center gap-2 justify-around w-full">
+        <Link className="bg-blue-500 rounded-full px-3 flex gap-2 cursor-pointer py-1 items-center" to={project.projectUrl} target="_blank">
+          <OnlinePredictionIcon style={{ width: "20px", height: "20px" }} />
+          Go Live
+        </Link>
+        <Link className="bg-blue-500 rounded-full flex gap-2 px-3 cursor-pointer py-1 items-center" to={project.gitHubUrl} target="_blank">
+          <GitHubIcon style={{ width: "20px", height: "20px" }} /> GitHub
+        </Link>
+      </div>
     </div>
   );
 }
