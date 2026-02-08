@@ -33,9 +33,12 @@ function ViewProject() {
         </p>
 
         <div className="rounded-lg mb-3 sm:h-1/2 w-full flex justify-center ">
-          <img
+          <video
             src={project?.image?.url}
-            alt="Project Image"
+            autoPlay
+            muted
+            loop
+            alt="Project"
             className="rounded-lg h-full outline-1"
           />
         </div>
