@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ import Project from "./subComponect/Project";
 import Timeline from "./subComponect/Timeline";
 import AboutMe from "./subComponect/AboutMe";
 import Skills from "./subComponect/Skills";
-
+import { motion } from "framer-motion";
 import { Skeleton } from "boneyard-js/react";
 
 function Home() {
@@ -30,6 +30,13 @@ function Home() {
   const [skillLoading, setSkillLoading] = useState(true);
   const [timeLineLoading, setTimeLineLoading] = useState(true);
   const [projectLoading, setProjectLoading] = useState(true);
+
+  const ref = useRef({
+    user: false,
+    timeline: false,
+    skills: false,
+    projects: false,
+  });
 
   const [contactForm, setContactForm] = useState({
     senderName: "",
@@ -125,13 +132,6 @@ function Home() {
       });
   };
 
-  useEffect(() => {
-    fetchUser();
-    fetchTimeline();
-    fetchSkills();
-    fetchProjects();
-  }, []);
-
   return (
     <div className="w-full flex justify-center p-1 font-serif">
       <div className="w-full max-w-[900px] flex text-sm sm:text-lg flex-wrap">
@@ -168,7 +168,17 @@ function Home() {
 
         <div className="w-full flex px-2 flex-wrap gap-5 mt-15">
           <Skeleton name="hero" loading={userLoading}>
-            <div id="hero" className="mb-10 w-full overflow-x-hidden">
+            <motion.div
+              onViewportEnter={() => {
+                if (ref.current.user) return;
+                ref.current.user = true;
+                fetchUser();
+                console.log("CAll user");
+              }}
+              viewport={{ once: true }}
+              id="hero"
+              className="mb-10 w-full overflow-x-hidden"
+            >
               <div className="text-sm flex gap-1 items-center mb-3">
                 <span className="bg-green-400 h-2 w-2 rounded-full"></span>
                 <span className="font-extralight font-mono text-[12px]">
@@ -247,10 +257,20 @@ function Home() {
                   )}
                 </ul>
               </div>
-            </div>
+            </motion.div>
           </Skeleton>
 
-          <div id="timeline" className="mb-10 w-full overflow-x-hidden">
+          <motion.div
+            onViewportEnter={() => {
+              if (ref.current.timeline) return;
+              ref.current.timeline = true;
+              fetchTimeline();
+              console.log("CAll time");
+            }}
+            viewport={{ once: true }}
+            id="timeline"
+            className="mb-10 w-full overflow-x-hidden"
+          >
             <div className="relative flex justify-center items-center mb-3">
               <div className=" z-2 bg-black">
                 <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
@@ -263,9 +283,9 @@ function Home() {
             <Skeleton name="timeline" loading={timeLineLoading}>
               <Timeline timeLines={timeLines} />
             </Skeleton>
-          </div>
+          </motion.div>
 
-          <div id="aboutMe" className="mb-10 w-full overflow-x-hidden">
+          <motion.div id="aboutMe" className="mb-10 w-full overflow-x-hidden">
             <div className="relative w-full flex justify-center items-center mb-3">
               <div className="bg-black z-2">
                 <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
@@ -280,9 +300,19 @@ function Home() {
             <Skeleton name="aboutme" loading={userLoading}>
               <AboutMe user={user} aboutMeDescription={aboutMeDescription} />
             </Skeleton>
-          </div>
+          </motion.div>
 
-          <div id="skill" className="mb-10 w-full">
+          <motion.div
+            onViewportEnter={() => {
+              if (ref.current.skills) return;
+              ref.current.skills = true;
+              fetchSkills();
+              console.log("CAll skill");
+            }}
+            viewport={{ once: true }}
+            id="skill"
+            className="mb-10 w-full"
+          >
             <div className="relative w-full flex justify-center items-center mb-3">
               <div className="bg-black z-2">
                 <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
@@ -295,9 +325,19 @@ function Home() {
             <Skeleton name="skills" loading={skillLoading}>
               <Skills skills={skills} />
             </Skeleton>
-          </div>
+          </motion.div>
 
-          <div id="project" className="mb-10 w-full overflow-x-hidden">
+          <motion.div
+            onViewportEnter={() => {
+              if (ref.current.projects) return;
+              ref.current.projects = true;
+              fetchProjects();
+              console.log("CAll project");
+            }}
+            viewport={{ once: true }}
+            id="project"
+            className="mb-10 w-full overflow-x-hidden"
+          >
             <div className="relative w-full flex justify-center items-center mb-8">
               <div className="bg-black z-2">
                 <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
@@ -312,7 +352,7 @@ function Home() {
                 <Project key={project._id} project={project} />
               ))}
             </Skeleton>
-          </div>
+          </motion.div>
 
           <div id="contactMe" className="mb-10 w-full">
             <div className="relative w-full flex justify-center items-center mb-8">
