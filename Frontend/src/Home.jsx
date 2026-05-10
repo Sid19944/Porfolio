@@ -167,7 +167,7 @@ function Home() {
         </nav>
 
         <div className="w-full flex px-2 flex-wrap gap-5 mt-15">
-          <Skeleton name="here" loading={userLoading}>
+          <Skeleton name="hero" loading={userLoading}>
             <div id="hero" className="mb-10 w-full overflow-x-hidden">
               <div className="text-sm flex gap-1 items-center mb-3">
                 <span className="bg-green-400 h-2 w-2 rounded-full"></span>
@@ -250,17 +250,52 @@ function Home() {
             </div>
           </Skeleton>
 
-          <Skeleton name="timeline" loading={timeLineLoading}>
-            <Timeline timeLines={timeLines} />
-          </Skeleton>
+          <div id="timeline" className="mb-10 w-full overflow-x-hidden">
+            <div className="relative flex justify-center items-center mb-3">
+              <div className=" z-2 bg-black">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
+                  Timeline
+                </h1>
+              </div>
 
-          <Skeleton name="aboutme" loading={userLoading}>
-            <AboutMe user={user} aboutMeDescription={aboutMeDescription} />
-          </Skeleton>
+              <span className="border-1 w-full absolute"></span>
+            </div>
+            <Skeleton name="timeline" loading={timeLineLoading}>
+              <Timeline timeLines={timeLines} />
+            </Skeleton>
+          </div>
 
-          <Skeleton name="skills" loading={skillLoading}>
-            <Skills skills={skills} />
-          </Skeleton>
+          <div id="aboutMe" className="mb-10 w-full overflow-x-hidden">
+            <div className="relative w-full flex justify-center items-center mb-3">
+              <div className="bg-black z-2">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
+                  ABOUT ME
+                </h1>
+              </div>
+              <span className="absolute border-1 w-full"></span>
+            </div>
+            <p className="text-center relative -top-3 opacity-60 text-sm">
+              ALLOW ME TO INTRODUCE MYSELF
+            </p>
+            <Skeleton name="aboutme" loading={userLoading}>
+              <AboutMe user={user} aboutMeDescription={aboutMeDescription} />
+            </Skeleton>
+          </div>
+
+          <div id="skill" className="mb-10 w-full">
+            <div className="relative w-full flex justify-center items-center mb-3">
+              <div className="bg-black z-2">
+                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
+                  SKILLS
+                </h1>
+              </div>
+              <span className="absolute border w-full"></span>
+            </div>
+
+            <Skeleton name="skills" loading={skillLoading}>
+              <Skills skills={skills} />
+            </Skeleton>
+          </div>
 
           <div id="project" className="mb-10 w-full overflow-x-hidden">
             <div className="relative w-full flex justify-center items-center mb-8">
