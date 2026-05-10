@@ -1,3 +1,4 @@
+import './bones/registry'
 import React from "react";
 import Home from "./Home";
 import ViewProject from "./subComponect/ViewProject.jsx";

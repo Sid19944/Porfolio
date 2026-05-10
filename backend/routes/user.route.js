@@ -23,6 +23,7 @@ router.route("/update/me").put(verifyJWT, updateProfile); //
 router.route("/update/password").put(verifyJWT, updatePassword); //
 router.route("/refreshAccessToken").post(refreshAccessToken);
 
+// portfolio 
 router.route("/me/portfolio").get(getUserForPortfolio);
 
 // forgot password

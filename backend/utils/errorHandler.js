@@ -21,3 +21,11 @@ export const erroMiddleware = (err, req, res, next) => {
 };
 
 export default ErrorHandler;
+
+export const apiResponse = (statusCode, message, data) => {
+  return res.status(statusCode).json({
+    success : true,
+    message,
+    data,
+  });
+};

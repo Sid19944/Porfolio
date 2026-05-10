@@ -13,8 +13,12 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import PublishIcon from "@mui/icons-material/Publish";
 
 import { userUrl, projectUrl, skillUrl, timeLineUrl, messageUrl } from "./Api";
-import LeftImage from "./subComponect/LeftImage";
-import RightImage from "./subComponect/RightImage";
+import Project from "./subComponect/Project";
+import Timeline from "./subComponect/Timeline";
+import AboutMe from "./subComponect/AboutMe";
+import Skills from "./subComponect/Skills";
+
+import { Skeleton } from "boneyard-js/react";
 
 function Home() {
   const [section, setSection] = useState("profile");
@@ -22,7 +26,10 @@ function Home() {
   const [timeLines, setTimeLines] = useState([]);
   const [skills, setSkills] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
+  const [skillLoading, setSkillLoading] = useState(true);
+  const [timeLineLoading, setTimeLineLoading] = useState(true);
+  const [projectLoading, setProjectLoading] = useState(true);
 
   const [contactForm, setContactForm] = useState({
     senderName: "",
@@ -56,68 +63,79 @@ function Home() {
       });
   };
 
+  const fetchUser = () => {
+    setUserLoading(true);
+    userUrl
+      .get("/me/portfolio")
+      .then((res) => {
+        setUser(res?.data?.user);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+      })
+      .finally(() => {
+        setUserLoading(false);
+      });
+  };
+
+  const fetchTimeline = () => {
+    setTimeLineLoading(true);
+    timeLineUrl
+      .get("/all")
+      .then((res) => {
+        setTimeLines(res?.data?.allTimeLine);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+      })
+      .finally(() => {
+        setTimeLineLoading(false);
+      });
+  };
+
+  const fetchSkills = () => {
+    setSkillLoading(true);
+    skillUrl
+      .get("/all")
+      .then((res) => {
+        setSkills(res?.data?.skills);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+        console.log(err.response);
+      })
+      .finally(() => {
+        setSkillLoading(false);
+      });
+  };
+
+  const fetchProjects = () => {
+    setProjectLoading(true);
+    projectUrl
+      .get("/all")
+      .then((res) => {
+        setProjects(res?.data?.projects);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+      })
+      .finally(() => {
+        setProjectLoading(false);
+      });
+  };
+
   useEffect(() => {
-    (async () => {
-      console.time("start");
-      setLoading(true);
-      await userUrl
-        .get("/me/portfolio")
-        .then((res) => {
-          // console.log(res.data)
-          setUser(res?.data?.user);
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-          toast.error(err?.response?.data?.message);
-        });
-
-      await timeLineUrl
-        .get("/all")
-        .then((res) => {
-          setTimeLines(res?.data?.allTimeLine);
-        })
-        .catch((err) => {
-          toast.error(err?.response?.data?.message);
-          console.log(err.response);
-        });
-
-      setLoading(false);
-      console.timeEnd("start");
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      await skillUrl
-        .get("/all")
-        .then((res) => {
-          setSkills(res?.data?.skills);
-        })
-        .catch((err) => {
-          toast.error(err?.response?.data?.message);
-          console.log(err.response);
-        });
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      await projectUrl
-        .get("/all")
-        .then((res) => {
-          setProjects(res?.data?.projects);
-          setLoading(false);
-        })
-        .catch((err) => {
-          toast.error(err?.response?.data?.message);
-        });
-    })();
+    fetchUser();
+    fetchTimeline();
+    fetchSkills();
+    fetchProjects();
   }, []);
 
   return (
     <div className="w-full flex justify-center p-1 font-serif">
       <div className="w-full max-w-[900px] flex text-sm sm:text-lg flex-wrap">
-        <nav className="flex justify-end w-full gap-3 group py-2 border-b mb-4 bg-black z-3 ">
+        <nav className="flex sticky top-0 justify-end w-full gap-3 group py-2 border-b mb-4 bg-black z-3 ">
           <a
             href="#aboutMe"
             className={`px-2 rounded-lg hover:text-yellow-500 group-hover:blur-[0.5px] hover:!blur-none `}
@@ -149,136 +167,80 @@ function Home() {
         </nav>
 
         <div className="w-full flex px-2 flex-wrap gap-5 mt-15">
-          <div id="hero" className="mb-10 w-full overflow-x-hidden">
-            <div className="text-sm flex gap-1 items-center mb-3">
-              <span className="bg-green-400 h-2 w-2 rounded-full"></span>
-              <span className="font-extralight font-mono text-[12px]">
-                Online
-              </span>
-            </div>
-            <div className="w-full">
-              <span className="tracking-[2px] mb-3 text-lg sm:text-xl">
-                Hey, I'm {user?.fullName}
-              </span>
-              <h1 className="text-2xl tracking-[15px] animate-pulse mb-3">
-                <Typewriter
-                  words={user?.iAm}
-                  loop={100}
-                  typeSpeed={70}
-                  deleteSpeed={70}
-                  cursor
-                />
-              </h1>
-
-              <div className="flex gap-4">
-                <div
-                  id="links"
-                  className="outline-1 w-fit flex gap-2 px-2 bg-white rounded-2xl items-center justify-center mb-3"
-                >
-                  {user?.githubUrl && (
-                    <Link
-                      to={user?.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className=" hover:scale-120 active:scale-120 group text-black"
-                    >
-                      <GitHubIcon style={{ fontSize: "25px" }} />
-                    </Link>
-                  )}
-
-                  {user?.instagramUrl && (
-                    <Link
-                      to={user?.instagramUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className=" hover:scale-120 active:scale-120 group text-red-600"
-                    >
-                      <InstagramIcon />
-                    </Link>
-                  )}
-
-                  {user?.linkedInUrl && (
-                    <Link
-                      to={user?.linkedInUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className=" hover:scale-120 active:scale-120 group text-blue-600"
-                    >
-                      <LinkedInIcon />
-                    </Link>
-                  )}
-                </div>
-
-                <div className="w-fit h-fit px-2  rounded-2xl bg-white text-black">
-                  <a
-                    className="hover:font-bold"
-                    href={user?.resume?.url}
-                    download
-                    rel="noopener noreferrer"
-                  >
-                    <OpenInNewIcon />
-                    <span className="text-xs">Resume</span>
-                  </a>
-                </div>
+          <Skeleton name="here" loading={userLoading}>
+            <div id="hero" className="mb-10 w-full overflow-x-hidden">
+              <div className="text-sm flex gap-1 items-center mb-3">
+                <span className="bg-green-400 h-2 w-2 rounded-full"></span>
+                <span className="font-extralight font-mono text-[12px]">
+                  Online
+                </span>
               </div>
-
-              <ul className="list-disc list-inside text-white marker:text-blue-700">
-                {aboutMeDescription?.map(
-                  (el, idx) => el?.trim() != "" && <li key={idx}>{el}.</li>,
-                )}
-              </ul>
-            </div>
-          </div>
-
-          <div id="timeline" className="mb-10 w-full overflow-x-hidden">
-            <div className="relative flex justify-center items-center mb-3">
-              <div className=" z-2 bg-black">
-                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
-                  Timeline
-                </h1>
-              </div>
-
-              <span className="border-1 w-full absolute"></span>
-            </div>
-            <ol className="relative border-s border-default ms-2 border-blue-600">
-              {timeLines?.map((timeLine) => (
-                <li key={timeLine?._id} className="mb-5  ms-5">
-                  <span className="h-2 w-2 bg-blue-600 absolute rounded-full -left-[4.5px] shadow-[0px_0px_3px_3px] shadow-blue-600"></span>
-                  <p className="relative -top-2">{timeLine.name}</p>
-                  <p className="text-xs opacity-50 relative -top-3">
-                    {timeLine.from} - {timeLine.to}
-                  </p>
-                  <p className="relative -top-2 text-sm opacity-80">
-                    {timeLine?.about}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div id="aboutMe" className="mb-10 w-full overflow-x-hidden">
-            <div className="relative w-full flex justify-center items-center mb-3">
-              <div className="bg-black z-2">
-                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
-                  ABOUT ME
-                </h1>
-              </div>
-              <span className="absolute border-1 w-full"></span>
-            </div>
-            <p className="text-center relative -top-3 opacity-60 text-sm">
-              ALLOW ME TO INTRODUCE MYSELF
-            </p>
-
-            <div className="flex leading-relaxed">
-              <div className="p-8">
-                <div className="flex justify-center w-fit float-start">
-                  <img
-                    src={user?.avatar?.url}
-                    alt="avatar"
-                    className="shadow-[0px_0px_4px_4px] w-full max-w-35 md:max-w-40 mb-4 mx-20 rotate-15"
+              <div className="w-full">
+                <span className="tracking-[2px] mb-3 text-lg sm:text-xl">
+                  Hey, I'm {user?.fullName}
+                </span>
+                <h1 className="text-2xl tracking-[15px] animate-pulse mb-3">
+                  <Typewriter
+                    words={user?.iAm}
+                    loop={100}
+                    typeSpeed={70}
+                    deleteSpeed={70}
+                    cursor
                   />
+                </h1>
+
+                <div className="flex gap-4">
+                  <div
+                    id="links"
+                    className="outline-1 w-fit flex gap-2 px-2 bg-white rounded-2xl items-center justify-center mb-3"
+                  >
+                    {user?.githubUrl && (
+                      <Link
+                        to={user?.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className=" hover:scale-120 active:scale-120 group text-black"
+                      >
+                        <GitHubIcon style={{ fontSize: "25px" }} />
+                      </Link>
+                    )}
+
+                    {user?.instagramUrl && (
+                      <Link
+                        to={user?.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className=" hover:scale-120 active:scale-120 group text-red-600"
+                      >
+                        <InstagramIcon />
+                      </Link>
+                    )}
+
+                    {user?.linkedInUrl && (
+                      <Link
+                        to={user?.linkedInUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className=" hover:scale-120 active:scale-120 group text-blue-600"
+                      >
+                        <LinkedInIcon />
+                      </Link>
+                    )}
+                  </div>
+
+                  <div className="w-fit h-fit px-2  rounded-2xl bg-white text-black">
+                    <a
+                      className="hover:font-bold"
+                      href={user?.resume?.url}
+                      download
+                      rel="noopener noreferrer"
+                    >
+                      <OpenInNewIcon />
+                      <span className="text-xs">Resume</span>
+                    </a>
+                  </div>
                 </div>
-                <p className="font-bold">{user?.fullName}</p>
+
                 <ul className="list-disc list-inside text-white marker:text-blue-700">
                   {aboutMeDescription?.map(
                     (el, idx) => el?.trim() != "" && <li key={idx}>{el}.</li>,
@@ -286,32 +248,19 @@ function Home() {
                 </ul>
               </div>
             </div>
-          </div>
+          </Skeleton>
 
-          <div id="skill" className="mb-10 w-full">
-            <div className="relative w-full flex justify-center items-center mb-3">
-              <div className="bg-black z-2">
-                <h1 className="animate-pulse tracking-[4px] md:tracking-[8px] text-3xl md:text-5xl font-extrabold font-mono">
-                  SKILLS
-                </h1>
-              </div>
-              <span className="absolute border w-full"></span>
-            </div>
-            <div className="grid grid-cols-4 md:grid-cols-6 h-fit gap-2 md:gap-3 outline-1 p-3 md:p-2 rounded-lg outline-gray-600">
-              {skills?.map((skill) => (
-                <div
-                  key={skill?._id}
-                  className=" outline-1 rounded-lg overflow-hidden"
-                >
-                  <img
-                    src={skill?.skillImage?.url}
-                    className="object-cover h-[70%] w-full rounded-t-lg"
-                  />
-                  <p className="text-center">{skill?.skillName}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <Skeleton name="timeline" loading={timeLineLoading}>
+            <Timeline timeLines={timeLines} />
+          </Skeleton>
+
+          <Skeleton name="aboutme" loading={userLoading}>
+            <AboutMe user={user} aboutMeDescription={aboutMeDescription} />
+          </Skeleton>
+
+          <Skeleton name="skills" loading={skillLoading}>
+            <Skills skills={skills} />
+          </Skeleton>
 
           <div id="project" className="mb-10 w-full overflow-x-hidden">
             <div className="relative w-full flex justify-center items-center mb-8">
@@ -323,13 +272,11 @@ function Home() {
               <span className="absolute border w-full"></span>
             </div>
 
-            {projects?.map((project, idx) =>
-              idx % 2 != 0 ? (
-                <LeftImage key={project._id} project={project} />
-              ) : (
-                <RightImage key={project._id} project={project} />
-              ),
-            )}
+            <Skeleton name="project" loading={projectLoading}>
+              {projects?.map((project) => (
+                <Project key={project._id} project={project} />
+              ))}
+            </Skeleton>
           </div>
 
           <div id="contactMe" className="mb-10 w-full">
@@ -462,7 +409,6 @@ function Home() {
         </div>
       </div>
       <ToastContainer />
-      {loading && <Loading text="Loading..." />}
     </div>
   );
 }
