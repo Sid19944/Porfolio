@@ -18,12 +18,6 @@ app.use(
   }),
 );
 
-console.log('Allowed origins:', [
-  "http://localhost:5173",
-  process.env.DASHBOARD_URL,
-  process.env.PORTFOLIO_URL,
-]);
-
 app.use(
   fileUpload({
     useTempFiles: true,
