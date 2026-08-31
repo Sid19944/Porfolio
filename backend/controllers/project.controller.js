@@ -57,11 +57,7 @@ const addProject = asyncHandler(async (req, res, next) => {
 });
 
 const allProject = asyncHandler(async (req, res, next) => {
-  const projects = await Project.find().populate("technologies");
-
-  const Aprojects = await Project.find();
-  // console.log(Aprojects);
-
+  const projects = await Project.find().populate("technologies").sort({createdAt : -1});
   if (!projects) {
     return next(
       new ErrorHandler("Something wrong while getting projects", 500)

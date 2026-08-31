@@ -173,7 +173,6 @@ function Home() {
                 if (ref.current.user) return;
                 ref.current.user = true;
                 fetchUser();
-                console.log("CAll user");
               }}
               viewport={{ once: true }}
               id="hero"
@@ -265,7 +264,6 @@ function Home() {
               if (ref.current.timeline) return;
               ref.current.timeline = true;
               fetchTimeline();
-              console.log("CAll time");
             }}
             viewport={{ once: true }}
             id="timeline"
@@ -307,7 +305,6 @@ function Home() {
               if (ref.current.skills) return;
               ref.current.skills = true;
               fetchSkills();
-              console.log("CAll skill");
             }}
             viewport={{ once: true }}
             id="skill"
@@ -332,7 +329,6 @@ function Home() {
               if (ref.current.projects) return;
               ref.current.projects = true;
               fetchProjects();
-              console.log("CAll project");
             }}
             viewport={{ once: true }}
             id="project"
